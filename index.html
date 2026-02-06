@@ -1,72 +1,287 @@
-
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Eterna | סינדי ווינשטיין</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Assistant:wght@200;300;400;600;700&family=Frank+Ruhl+Libre:wght@300;400;700&display=swap"
+      rel="stylesheet"
+    />
+
     <style>
-      body {
-        font-family: 'Assistant', sans-serif;
-        background-color: #000;
-        color: #fff;
-        margin: 0;
-        overflow-x: hidden;
-        user-select: none;
+      :root{
+        --bg1:#05070c;
+        --bg2:#0a1630;
+        --card: rgba(255,255,255,.08);
+        --stroke: rgba(255,255,255,.14);
+        --text: rgba(255,255,255,.92);
+        --muted: rgba(255,255,255,.68);
+        --shadow: 0 22px 70px rgba(0,0,0,.55);
+        --radius: 26px;
       }
-      .font-serif {
-        font-family: 'Frank Ruhl Libre', serif;
+
+      *{box-sizing:border-box}
+      html,body{height:100%}
+      body{
+        font-family:'Assistant',system-ui,-apple-system,"SF Pro Text","SF Pro Display",Arial;
+        margin:0;
+        color:var(--text);
+        background:
+          radial-gradient(1200px 600px at 15% 10%, rgba(118,255,210,.14), transparent 60%),
+          radial-gradient(900px 600px at 80% 20%, rgba(90,160,255,.12), transparent 55%),
+          radial-gradient(700px 520px at 50% 85%, rgba(255,120,210,.10), transparent 55%),
+          linear-gradient(160deg, var(--bg1), var(--bg2));
+        overflow-x:hidden;
+        user-select:none;
       }
-      .glass {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+
+      .grain{
+        position:fixed; inset:0;
+        opacity:.06;
+        pointer-events:none;
+        background-image:url('https://grainy-gradients.vercel.app/noise.svg');
+        z-index:50;
       }
-      @keyframes float {
-        0%, 100% { transform: translateY(0) scale(1); }
-        50% { transform: translateY(-20px) scale(1.02); }
+
+      .orb{
+        position:fixed;
+        width:680px; height:680px;
+        border-radius:999px;
+        pointer-events:none;
+        filter: blur(2px);
+        opacity:.75;
+        z-index:-1;
+        background: radial-gradient(circle, rgba(255,255,255,.08) 0%, rgba(0,0,0,0) 70%);
       }
-      .animate-float {
-        animation: float 8s ease-in-out infinite;
+      .orb.a{ left:-220px; top:-260px;}
+      .orb.b{ right:-260px; top:120px;}
+      .orb.c{ left:20%; bottom:-340px;}
+
+      .wrap{
+        min-height:100%;
+        display:grid;
+        place-items:center;
+        padding:26px 14px;
       }
-      .grain {
-        position: fixed;
-        top: 0; left: 0; width: 100%; height: 100%;
-        opacity: 0.05;
-        pointer-events: none;
-        background-image: url('https://grainy-gradients.vercel.app/noise.svg');
-        z-index: 50;
+
+      .card{
+        width:min(860px, 95vw);
+        border-radius:var(--radius);
+        background: linear-gradient(180deg, rgba(255,255,255,.11), rgba(255,255,255,.06));
+        border:1px solid var(--stroke);
+        box-shadow: var(--shadow);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        overflow:hidden;
+        position:relative;
       }
-      .glow-orb {
-        position: fixed;
-        width: 600px;
-        height: 600px;
-        background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(0,0,0,0) 70%);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: -1;
+
+      .topbar{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:18px 18px 0;
+        gap:10px;
       }
+
+      .pill{
+        display:inline-flex;
+        align-items:center;
+        gap:8px;
+        font-size:12px;
+        color:rgba(255,255,255,.72);
+        border:1px solid rgba(255,255,255,.14);
+        padding:7px 10px;
+        border-radius:999px;
+        background:rgba(255,255,255,.06);
+      }
+      .dot{ width:6px; height:6px; border-radius:99px; background:rgba(120,255,210,.9); box-shadow:0 0 18px rgba(120,255,210,.65);}
+
+      .brand{
+        font-family:'Frank Ruhl Libre',serif;
+        letter-spacing:.2px;
+        opacity:.85;
+        font-size:12px;
+      }
+
+      .content{
+        padding:18px 18px 16px;
+      }
+
+      h1{
+        margin:12px 0 6px;
+        font-size:34px;
+        line-height:1.15;
+      }
+
+      .subtitle{
+        margin:0 0 16px;
+        color:var(--muted);
+        font-size:16px;
+        line-height:1.6;
+      }
+
+      .stage{
+        margin-top:14px;
+        border-radius:20px;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(255,255,255,.05);
+        padding:14px;
+        position:relative;
+        overflow:hidden;
+      }
+
+      .question{
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        flex-wrap:wrap;
+        padding:10px 6px 6px;
+      }
+      .qtitle{
+        font-weight:800;
+        font-size:18px;
+      }
+      .hint{
+        color:rgba(255,255,255,.6);
+        font-size:12px;
+      }
+
+      .buttons{
+        margin-top:8px;
+        height:92px;
+        display:flex;
+        gap:12px;
+        align-items:center;
+        justify-content:center;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,.10);
+        background:rgba(0,0,0,.15);
+        position:relative;
+      }
+
+      .btn{
+        border:0;
+        border-radius:18px;
+        padding:14px 18px;
+        font-size:16px;
+        font-weight:800;
+        cursor:pointer;
+        transition: transform .15s ease, filter .15s ease, opacity .15s ease;
+      }
+      .btn:active{ transform: scale(.98); }
+
+      .yes{
+        color:#061112;
+        background: linear-gradient(180deg, rgba(120,255,210,1), rgba(80,220,175,1));
+        box-shadow: 0 14px 40px rgba(60, 255, 200, .20);
+      }
+      .no{
+        color:var(--text);
+        background: rgba(255,255,255,.10);
+        border:1px solid rgba(255,255,255,.16);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+      .ghost{
+        color:var(--text);
+        background: rgba(255,255,255,.07);
+        border:1px solid rgba(255,255,255,.14);
+      }
+
+      .btn:hover{ filter: brightness(1.06); }
+
+      .result{
+        margin-top:14px;
+        border-radius:18px;
+        border:1px solid rgba(255,255,255,.12);
+        background:rgba(255,255,255,.06);
+        padding:14px;
+        text-align:center;
+        display:none;
+      }
+      .result.show{ display:block; }
+      .emoji{ font-size:42px; margin-bottom:6px; }
+      .result h2{ margin:6px 0 6px; font-size:22px; }
+      .result p{ margin:0 0 12px; color:var(--muted); }
+
+      .footer{
+        padding:14px 18px 16px;
+        display:flex;
+        justify-content:center;
+        gap:10px;
+        align-items:center;
+        color:rgba(255,255,255,.55);
+        font-size:12px;
+      }
+
+      /* confetti */
+      canvas.confetti{
+        position:fixed;
+        inset:0;
+        pointer-events:none;
+        opacity:0;
+        transition: opacity .2s ease;
+      }
+      canvas.confetti.show{ opacity:1; }
     </style>
-    <script type="importmap">
-    {
-      "imports": {
-        "react": "https://esm.sh/react@^19.2.4",
-        "react/": "https://esm.sh/react@^19.2.4/",
-        "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
-        "@google/genai": "https://esm.sh/@google/genai@^1.40.0"
-      }
-    }
-    </script>
-  <link rel="stylesheet" href="/index.css">
-</head>
+  </head>
+
   <body>
     <div class="grain"></div>
-    <div id="root"></div>
-  <script type="module" src="/index.tsx"></script>
-</body>
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+    <div class="orb c"></div>
+
+    <div class="wrap">
+      <main class="card" role="main" aria-live="polite">
+        <div class="topbar">
+          <div class="pill"><span class="dot"></span> הודעה קטנה ממני</div>
+          <div class="brand">Eterna ✦</div>
+        </div>
+
+        <div class="content">
+          <h1>שאלה אחת. תשובה אחת. ✨</h1>
+          <p class="subtitle">
+            הכנתי לך משהו קטן בסגנון “אפל” — פשוט, נקי, ועם טוויסט קטן.
+          </p>
+
+          <section class="stage">
+            <div class="question">
+              <div class="qtitle">האם את אוהבת אותי?</div>
+              <div class="hint" id="hint">טיפ: נסי ללחוץ על “לא”… 😅</div>
+            </div>
+
+            <div class="buttons" id="buttons">
+              <button class="btn yes" id="yesBtn">כן 💚</button>
+              <button class="btn no" id="noBtn" aria-label="לא">לא 🙃</button>
+            </div>
+
+            <div class="result" id="result">
+              <div class="emoji" id="emoji">🎉</div>
+              <h2 id="resultTitle">ידעתי 😌</h2>
+              <p id="resultText">את עשית לי את היום.</p>
+              <button class="btn ghost" id="againBtn">עוד פעם</button>
+            </div>
+          </section>
+        </div>
+
+        <footer class="footer">
+          <span>נוצר במיוחד בשבילך</span>
+          <span style="opacity:.5">•</span>
+          <span style="opacity:.85">Apple-vibe ✨</span>
+        </footer>
+      </main>
+    </div>
+
+    <canvas id="confetti" class="confetti" aria-hidden="true"></canvas>
+
+    <!-- חשוב: נתיב יחסי, לא עם / -->
+    <script type="module" src="./app.js"></script>
+  </body>
 </html>
