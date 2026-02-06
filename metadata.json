@@ -1,0 +1,7 @@
+{
+  "name": "Eterna - An Interactive Love Experience",
+  "description": "A premium, Apple-inspired interactive experience for your partner, featuring AI-generated poetry and personalized visuals powered by Gemini.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
